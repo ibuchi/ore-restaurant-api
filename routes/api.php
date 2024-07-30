@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\MenuController;
+use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Illuminate\Support\Facades\Route;
 
@@ -10,5 +11,6 @@ Route::controller(AuthenticatedSessionController::class)->prefix('/auth')->group
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {
+    Route::apiResource('users', UserController::class)->only(['index', 'show']);
     Route::apiResource('menus', MenuController::class);
 });
