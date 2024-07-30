@@ -1,5 +1,7 @@
 <?php
 
+use App\Enums\UserTypes;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,12 +15,26 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('first_name');
+            $table->string('middle_name')->nullable();
+            $table->string('last_name');
+            $table->enum('type', UserTypes::values())->default(UserTypes::CUSTOMER);
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+
+            $table->enum('gender', ['M', 'F'])->nullable();
+            $table->date('dob')->nullable();
+            $table->string('address')->nullable();
+
+            $table->integer('login_count')->default(0);
+            $table->timestamp('last_login')->nullable();
+            $table->timestamp('banned_until')->nullable();
+
             $table->rememberToken();
             $table->timestamps();
+
+            $table->fullText(User::FULL_TEXT_COLUMNS, 'fulltext_index');
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
