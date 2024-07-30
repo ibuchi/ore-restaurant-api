@@ -13,7 +13,7 @@ class MenuPolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -21,7 +21,7 @@ class MenuPolicy
      */
     public function view(User $user, Menu $menu): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -29,7 +29,7 @@ class MenuPolicy
      */
     public function create(User $user): bool
     {
-        //
+        return $user->isStaff();
     }
 
     /**
@@ -37,7 +37,7 @@ class MenuPolicy
      */
     public function update(User $user, Menu $menu): bool
     {
-        //
+        return $user->isStaff();
     }
 
     /**
@@ -45,7 +45,7 @@ class MenuPolicy
      */
     public function delete(User $user, Menu $menu): bool
     {
-        //
+        return $user->isStaff();
     }
 
     /**
