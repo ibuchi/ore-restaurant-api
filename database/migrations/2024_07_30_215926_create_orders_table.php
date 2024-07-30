@@ -23,7 +23,6 @@ return new class extends Migration
             $table->enum('status', [OrderStatus::values()])->default(OrderStatus::PENDING);
             $table->timestamps();
             $table->authors();
-            $table->timestamps();
         });
     }
 

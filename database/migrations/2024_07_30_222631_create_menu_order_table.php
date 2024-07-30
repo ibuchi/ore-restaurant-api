@@ -18,6 +18,7 @@ return new class extends Migration
             $table->float('price', 2);
             $table->integer('quantity')->default(1);
             $table->timestamps();
+            $table->authors();
         });
     }
 
