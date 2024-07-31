@@ -29,6 +29,7 @@ class MenuPolicy
      */
     public function create(User $user): bool
     {
+        //TODO: Show a proper error when this request is denied
         return $user->isStaff();
     }
 

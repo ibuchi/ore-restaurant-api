@@ -55,7 +55,7 @@ class User extends Authenticatable
 
     public function isStaff(): bool
     {
-        return $this->type == UserTypes::STAFF;
+        return $this->type == UserTypes::STAFF->value;
     }
 
     /**

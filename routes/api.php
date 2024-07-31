@@ -13,7 +13,7 @@ Route::prefix('/auth')->group(function () {
         Route::post('/register', 'store');
     });
 
-    Route::controller(AuthenticatedSessionController::class)->group(function() {
+    Route::controller(AuthenticatedSessionController::class)->group(function () {
         Route::post('/login', 'store');
         Route::post('/logout', 'destroy')->middleware(['auth:sanctum']);
     });
@@ -21,10 +21,10 @@ Route::prefix('/auth')->group(function () {
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('users', UserController::class)->only(['index', 'show']);
-    Route::apiResource('menus', MenuController::class);
-    Route::apiResource('orders', OrderController::class);
     Route::get('/menus/discounted', [MenuController::class, 'discountedMenus']);
     Route::get('/menus/drinks', [MenuController::class, 'drinkMenus']);
+    Route::apiResource('menus', MenuController::class);
+    Route::apiResource('orders', OrderController::class);
 
     Route::apiResource('profile', ProfileController::class)->only(['index']);
 });

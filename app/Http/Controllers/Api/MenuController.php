@@ -52,7 +52,7 @@ class MenuController extends Controller
      */
     public function update(MenuRequest $request, Menu $menu)
     {
-        $menu->update($request->validate());
+        $menu->update($request->validated());
 
         return Response::api([
             'message' => 'Menu updated!',

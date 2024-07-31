@@ -19,6 +19,7 @@ return new class extends Migration
             $table->float('price', 2);
             $table->boolean('is_discounted')->default(false);
             $table->timestamps();
+            $table->authors();
         });
     }
 
