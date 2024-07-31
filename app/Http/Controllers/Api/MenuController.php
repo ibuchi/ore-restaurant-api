@@ -77,4 +77,12 @@ class MenuController extends Controller
             'data' => Menu::whereIsDiscounted(true)->get(),
         ]);
     }
+
+    public function drinkMenus()
+    {
+        return Response::api([
+            'message' => 'Drinks on the menu!',
+            'data' => Menu::whereCategory('drink')->get(),
+        ]);
+    }
 }

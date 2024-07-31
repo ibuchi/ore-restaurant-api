@@ -15,6 +15,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('users', UserController::class)->only(['index', 'show']);
     Route::apiResource('menus', MenuController::class);
     Route::get('/menus/discounted', [MenuController::class, 'discountedMenus']);
+    Route::get('/menus/drinks', [MenuController::class, 'drinkMenus']);
 
     Route::apiResource('profile', ProfileController::class)->only(['index']);
 });
