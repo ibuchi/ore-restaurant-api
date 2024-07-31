@@ -27,26 +27,31 @@ class MenuPolicy
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $user): bool
+    public function create(User $user): Response
     {
-        //TODO: Show a proper error when this request is denied
-        return $user->isStaff();
+        return $user->isStaff()
+            ? Response::allow()
+            : Response::deny('You do not have the permission to access this resource.');
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Menu $menu): bool
+    public function update(User $user, Menu $menu): Response
     {
-        return $user->isStaff();
+        return $user->isStaff()
+            ? Response::allow()
+            : Response::deny('You do not have the permission to access this resource.');
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Menu $menu): bool
+    public function delete(User $user, Menu $menu): Response
     {
-        return $user->isStaff();
+        return $user->isStaff()
+            ? Response::allow()
+            : Response::deny('You do not have the permission to access this resource.');
     }
 
     /**
