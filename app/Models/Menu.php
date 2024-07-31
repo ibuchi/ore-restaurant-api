@@ -12,6 +12,18 @@ class Menu extends Model
 
     protected $guarded = ['id'];
 
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'is_discounted' => 'boolean'
+        ];
+    }
+
     public function orders(): BelongsToMany
     {
         return $this->belongsToMany(Order::class)->withTimestamps();
