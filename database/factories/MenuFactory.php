@@ -51,7 +51,7 @@ class MenuFactory extends Factory
             'name' => $name[0],
             'description' => "A delicious {$name[0]} with all the fixings.",
             'category' => $categories[0],
-            'price' => fake()->randomFloat(2, 500, 5000),
+            'price' => random_int( 500, 5000),
             'is_discounted' => random_int(0, 1)
         ];
     }

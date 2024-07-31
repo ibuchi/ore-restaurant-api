@@ -31,7 +31,7 @@ class MenuController extends Controller
     public function store(MenuRequest $request)
     {
         return Response::api([
-            'message' => 'All menus!',
+            'message' => 'Menu added!',
             'data' => Menu::create($request->validated())
         ]);
     }
