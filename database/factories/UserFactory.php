@@ -23,8 +23,17 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $gender = ['M', 'F'];
+
+        shuffle($gender);
+
         return [
-            'name' => fake()->name(),
+            'first_name' => fake()->name(),
+            'last_name' => fake()->name(),
+            'address' => fake()->address(),
+            'phone' => fake()->phoneNumber(11, 15),
+            'gender' => $gender[0],
+            'dob' => fake()->date(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),

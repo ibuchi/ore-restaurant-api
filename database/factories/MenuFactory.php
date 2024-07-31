@@ -16,8 +16,43 @@ class MenuFactory extends Factory
      */
     public function definition(): array
     {
+        $name = [
+            'Pizza',
+            'Burger',
+            'Pasta',
+            'Sushi',
+            'Tacos',
+            'Salad',
+            'Sandwich',
+            'Steak',
+            'Soup',
+            'Curry',
+        ];
+
+        shuffle($name);
+
+        $categories = [
+            'Drinks',
+            'Main Course',
+            'Desserts',
+            'Beverages',
+            'Drinks',
+            'Salads',
+            'Soups',
+            'Snacks',
+            'Breads',
+            'Pasta',
+            'Seafood',
+        ];
+
+        shuffle($categories);
+
         return [
-            //
+            'name' => $name[0],
+            'description' => "A delicious {$name[0]} with all the fixings.",
+            'category' => $categories[0],
+            'price' => fake()->randomFloat(2, 500, 5000),
+            'is_discounted' => random_int(0, 1)
         ];
     }
 }
