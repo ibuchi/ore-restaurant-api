@@ -12,7 +12,7 @@ class OrderRequest extends FormRequest
 {
     public array $items;
 
-    public float $total_price;
+    public int $quantity;
 
     /**
      * Determine if the user is authorized to make this request.
@@ -34,22 +34,29 @@ class OrderRequest extends FormRequest
             'phone' => 'required|digits_between:11,15',
             'address' => 'required|string',
             'status' => ['nullable', Rule::in(OrderStatus::values())],
-            'quantity' => 'nullable',
-            'total_price' => 'nullable',
-            'products' => 'required|array',
-            'products.*.quantity' => 'required|integer'
+            'menus' => 'required|array',
+            'menus.*.quantity' => 'required|integer'
         ];
     }
 
     protected function passedValidation()
     {
-        $this->collect('products')->each(function ($value, $key) {
+        //Retrieve each menu items price
+        $this->collect('menus')->each(function ($value, $key) {
             $this->items[$key] = $value;
-            $this->items[$key]['price'] = Menu::find($key)->price;
+            $this->items[$key]['price'] = Menu::findOrFail($key)?->price;
         });
 
-        $this->total_price = collect($this->items)->sum(
-            fn ($item) => $item['price'] * $item['quantity']
+        //Calculate and merge the total price of the ordererd menu items into the request class
+        $this->merge([
+            'total_price' => collect($this->items)->sum(
+                fn ($item) => $item['price'] * $item['quantity']
+            )
+        ]);
+
+        //Get total quantity of menu items
+        $this->quantity = collect($this->items)->sum(
+            fn ($item) => $item['quantity']
         );
     }
 
@@ -57,10 +64,10 @@ class OrderRequest extends FormRequest
     {
         $data = $this->only(['email', 'phone', 'address', 'total_price', 'quantity']);
 
-        $order = user()->orders()->create($data)->tap(function (Order $order) {
+        $order = tap(user()->orders()->create($data), function (Order $order) {
             $order->menus()->attach($this->items);
         });
 
-        return $order;
+        return $order->refresh();
     }
 }
