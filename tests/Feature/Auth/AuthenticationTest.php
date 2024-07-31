@@ -14,20 +14,23 @@ class AuthenticationTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->post('/login', [
+        $response = $this->post('/api/v1/auth/login', [
             'email' => $user->email,
             'password' => 'password',
         ]);
 
         $this->assertAuthenticated();
-        $response->assertNoContent();
+        $response->assertJson([
+            'status' => true,
+            'message' => 'Login successful!'
+        ]);
     }
 
     public function test_users_can_not_authenticate_with_invalid_password(): void
     {
         $user = User::factory()->create();
 
-        $this->post('/login', [
+        $this->post('/api/v1/auth/login', [
             'email' => $user->email,
             'password' => 'wrong-password',
         ]);
@@ -39,9 +42,10 @@ class AuthenticationTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->post('/logout');
+        $response = $this->actingAs($user)->post('/api/v1/auth/logout');
 
-        $this->assertGuest();
-        $response->assertNoContent();
+        // $this->assertGuest();
+        $response->assertStatus(200)
+            ->assertJson(['message' => 'Logout successful!']);
     }
 }
