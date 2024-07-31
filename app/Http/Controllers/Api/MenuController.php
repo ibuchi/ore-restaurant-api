@@ -69,4 +69,12 @@ class MenuController extends Controller
 
         Response::api('Menu item deleted!');
     }
+
+    public function discountedMenus()
+    {
+        return Response::api([
+            'message' => 'Discounted Menus!',
+            'data' => Menu::whereIsDiscounted(true)->get(),
+        ]);
+    }
 }
