@@ -12,12 +12,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
     use HasFactory,
         Notifiable,
-        ObservesWrites;
+        HasApiTokens;
 
     const FULL_TEXT_COLUMNS = ['first_name', 'middle_name', 'last_name', 'phone', 'email'];
 

@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
+use App\Observers\ObservesWrites;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Menu extends Model
 {
-    use HasFactory;
+    use HasFactory,
+        ObservesWrites;
 
     protected $guarded = ['id'];
 

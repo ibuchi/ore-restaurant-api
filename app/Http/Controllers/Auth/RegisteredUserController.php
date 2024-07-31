@@ -18,7 +18,7 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): Response
     {
-        $request->validate([
+        $validated = $request->validate([
             'first_name' => ['required', 'string', 'max:255'],
             'middle_name' => ['nullable', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
@@ -30,10 +30,13 @@ class RegisteredUserController extends Controller
             'address' => 'nullable',
         ]);
 
-        $user = User::create($request->validated());
+        $user = User::create($validated);
 
         event(new Registered($user));
 
-        return Response::api('User registered successfully!');;
+        return Response::api([
+            'message' => 'User registered successfully!',
+            'data' => $user
+        ]);
     }
 }
