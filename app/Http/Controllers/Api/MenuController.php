@@ -82,7 +82,7 @@ class MenuController extends Controller
     {
         return Response::api([
             'message' => 'Drinks on the menu!',
-            'data' => Menu::whereCategory('drink')->get(),
+            'data' => Menu::whereCategory('Drinks')->get(),
         ]);
     }
 }
