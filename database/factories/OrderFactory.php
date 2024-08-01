@@ -20,6 +20,7 @@ class OrderFactory extends Factory
     public function definition(): array
     {
         return [
+            // 'unique_id' => uniqid('ORE'),
             'user_id' => User::inRandomOrder()->first()->id,
             'email' => fake()->safeEmail(),
             'phone' => fake()->phoneNumber(),

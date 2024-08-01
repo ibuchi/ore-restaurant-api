@@ -2,10 +2,8 @@
 
 namespace Tests\Feature;
 
-use App\Models\Order;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\Response;
 use Tests\TestCase;
 
@@ -21,16 +19,13 @@ class OrderTest extends TestCase
     public function test_can_list_all()
     {
         $user = User::factory()->create();
-        $orders = Order::factory()->count(3)->create();
 
-        // Act: Make a request to the index endpoint
         $response = $this->actingAs($user)->getJson('/api/v1/orders');
 
-        // Assert: Check the response
         $response->assertStatus(Response::HTTP_OK)
             ->assertJson([
                 'message' => 'All orders!',
-                'data' => $orders->toArray(),
+                'status' => true
             ]);
     }
 

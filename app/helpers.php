@@ -14,3 +14,11 @@ function user($key = NULL): mixed
 
     return $key ? $user?->{$key} : $user;
 }
+
+if (!function_exists('format_money')) {
+    function format_money($amount)
+    {
+        return '₦' . number_format($amount, 2);
+    }
+}
+
