@@ -9,9 +9,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('/auth')->group(function () {
-    Route::controller(RegisteredUserController::class)->group(function () {
-        Route::post('/register', 'store');
-    });
+    Route::apiResource('/register',     RegisteredUserController::class)->only(['store']);
 
     Route::controller(AuthenticatedSessionController::class)->group(function () {
         Route::post('/login', 'store');
